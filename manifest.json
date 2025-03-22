@@ -1,0 +1,23 @@
+{
+    "manifest_version": 3,
+    "version": "1.0.0",
+    "version_name": "1.0.0",
+    "name": "Custom Shortcuts for Google Maps",
+    "description": "Modify keyboard shortcuts to make browsing Google Maps more fluid.",
+    "permissions": [
+        "storage"
+    ],
+    "host_permissions": [
+        "*://google.com/maps*",
+        "*://www.google.com/maps*"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "*://google.com/maps*",
+                "*://www.google.com/maps*"
+            ],
+            "js": ["content_script.js"]
+        }
+    ]
+}
