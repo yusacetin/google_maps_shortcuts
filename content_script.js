@@ -18,9 +18,10 @@ for Google Maps. If not, see <https://www.gnu.org/licenses/>.
 
 // Key combinations
 streetViewKeys = ["f"];
-backKeys = ["d"];
+backKeys = ["q"];
 searchKeys = ["s"];
 mapViewKeys = ["v"];
+imageryKeys = ["g"];
 
 // Modifier key pressed conditions
 var ctrlDown = false;
@@ -87,6 +88,22 @@ function toggleMapView() {
     searchBox.focus();
 }*/
 
+function toggleImagery() {
+    var button = getToggleImageryButton();
+    if (button == null) {
+        return;
+    }
+
+    const prev_state = isImageryOn(); // returns true for imagery on, false for imagery off
+    button.click();
+    const cur_state = isImageryOn();
+    if (prev_state == cur_state) {
+        // Fix for double click requirement, if the state does not change after one click, click again
+        // TODO this fixes the double click, but the imagery bar shows nothing until the map is dragged or zoomed if a double click is performed to open it 
+        button.click();
+    }
+}
+
 //// Functions (other than callback functions)
 
 function getToggleMapViewButton() {
@@ -146,9 +163,6 @@ function ifMapModeToggleStreetViewHighlight() {
     var streetViewToggleButton = getStreetViewToggleButton();
     if (streetViewToggleButton != null) {
         streetViewToggleButton.click();
-
-        // TODO sometimes a double click is required but gotta differentiate when to use and when not to
-
         return true;
     }
     return false;
@@ -161,8 +175,10 @@ function ifStreetViewHighlightOnTurnOff() {
 }
 
 function isStreetViewHighlightOn() {
-    var streetViewButtonSearch = document.getElementsByClassName("WzvKIe FVxzpc");
-    return (streetViewButtonSearch.length > 0);
+    //var streetViewButtonSearch = document.getElementsByClassName("WzvKIe FVxzpc");
+    //return (streetViewButtonSearch.length > 0);
+    const layer_rect = document.getElementById("layer").getBoundingClientRect();
+    return (layer_rect.width > 0 && layer_rect.height > 0);
 }
 
 function getStreetViewToggleButton() {
@@ -261,6 +277,19 @@ function getItemActiveOrSearchCloseButton() {
     return null;
 }
 
+function getToggleImageryButton() {
+    var buttons = document.getElementsByClassName("GFgdCf waIsr");
+    if (buttons.length > 0) {
+        return buttons[0];
+    }
+    return null;
+}
+
+function isImageryOn() {
+    var elems = document.getElementsByClassName("widgets-above-runway");
+    return (elems.length > 0);
+}
+
 //// Execute non-native shortcuts
 
 function checkAndRun(e, keyList, starti, callback){
@@ -330,6 +359,7 @@ document.addEventListener("keyup", (e) => {
     checkAndRun(e, backKeys, 0, goBack);
     //checkAndRun(e, searchKeys, 0, activateSearch); // does not work
     checkAndRun(e, mapViewKeys, 0, toggleMapView);
+    checkAndRun(e, imageryKeys, 0, toggleImagery)
 }, true);
 
 document.addEventListener("keydown", (e) => {

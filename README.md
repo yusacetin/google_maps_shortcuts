@@ -5,8 +5,9 @@ Custom keyboard shortcuts for Google Maps. Work in progress.
 | Key | Function                      |
 |-----|-------------------------------|
 |  f  | Toggle street view            |
-|  d  | Go back (exit menus etc.)     |
+|  q  | Go back (exit menus etc.)     |
 |  v  | Switch satellite/default view |
+|  g  | Toggle imagery/explore        |
 
 #### Known issues
 
