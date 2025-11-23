@@ -36,7 +36,15 @@ function toggleStreetView(){
     }
 
     // Being here means we are in map mode, so we toggle the street view highlights
+    const prev_state = isStreetViewHighlightOn();
     ifMapModeToggleStreetViewHighlight();
+    setTimeout(() => {
+        // Double click requirement fix
+        const cur_state = isStreetViewHighlightOn();
+        if (prev_state == cur_state) {
+            ifMapModeToggleStreetViewHighlight();
+        }
+    }, 50);
 }
 
 function goBack() {
@@ -69,24 +77,25 @@ function toggleMapView() {
         return;
     }
 
-    //var prevState = getTextOnLayersButton();
+    const prev_state = button.getAttribute("vet");
     button.click();
-    //if (getTextOnLayersButton() == prevState) {
-    //    button.click();
-    //}
-
-    // TODO sometimes a double click is required
+    setTimeout(() => {
+        const cur_state = button.getAttribute("vet");
+        if (prev_state == cur_state) {
+            button.click();
+        }
+    }, 50);
 }
 
 // TODO search does not work
-/*function activateSearch() {
+function activateSearch() {
     var searchBox = getSearchBox();
     if (searchBox == null) {
         return;
     }
-
-    searchBox.focus();
-}*/
+    console.log("Click search")
+    searchBox.click();
+}
 
 function toggleImagery() {
     var button = getToggleImageryButton();
@@ -112,37 +121,12 @@ function getToggleMapViewButton() {
         for (let i=0; i<buttonSearch.length; i++) {
             var currentButton = buttonSearch[i];
             if (currentButton.hasAttribute("jsaction")) {
-                if (currentButton.getAttribute("jsaction") == "minimap.main;contextmenu:minimap.main;focus:minimap.main;mousemove:minimap.main;mouseover:minimap.main;mouseout:minimap.main") {
-                    return currentButton;
-                }
+                return currentButton;
             }
         }
     }
     return null;
 }
-
-// TODO to be used for the toggle map view function
-/*function getTextOnLayersButton() {
-    var divSearch = document.getElementsByClassName("F63Kk");
-    if (divSearch.length <= 0) {
-        return "";
-    }
-
-    var labelSearch = divSearch[0].getElementsByTagName("label");
-    if (labelSearch.length <= 0) {
-        return "";
-    }
-
-    for (let i=0; i<labelSearch.length; i++) {
-        var currentLabel = labelSearch[i];
-        if (currentLabel.hasAttribute("jstcache")) {
-            if (currentLabel.getAttribute("jstcache") == "115") {
-                return currentLabel.textContent;
-            }
-        }
-    }
-    return "";
-}*/
 
 function ifStreetViewOnCloseStreetView() {
     var streetViewExitButton = getStreetViewExitButton();
@@ -154,6 +138,12 @@ function ifStreetViewOnCloseStreetView() {
         if (streetViewExitButton != null) {
             streetViewExitButton.click();
         }
+
+        setTimeout(() => {
+            const search_box = getSearchBox();
+            search_box.blur();
+        }, 100);
+
         return true;
     }
     return false;
@@ -175,10 +165,8 @@ function ifStreetViewHighlightOnTurnOff() {
 }
 
 function isStreetViewHighlightOn() {
-    //var streetViewButtonSearch = document.getElementsByClassName("WzvKIe FVxzpc");
-    //return (streetViewButtonSearch.length > 0);
-    const layer_rect = document.getElementById("layer").getBoundingClientRect();
-    return (layer_rect.width > 0 && layer_rect.height > 0);
+    var streetViewButtonSearch = document.getElementsByClassName("WzvKIe FVxzpc");
+    return (streetViewButtonSearch.length > 0);
 }
 
 function getStreetViewToggleButton() {
@@ -359,7 +347,7 @@ document.addEventListener("keyup", (e) => {
     checkAndRun(e, backKeys, 0, goBack);
     //checkAndRun(e, searchKeys, 0, activateSearch); // does not work
     checkAndRun(e, mapViewKeys, 0, toggleMapView);
-    checkAndRun(e, imageryKeys, 0, toggleImagery)
+    checkAndRun(e, imageryKeys, 0, toggleImagery);
 }, true);
 
 document.addEventListener("keydown", (e) => {

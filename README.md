@@ -1,4 +1,4 @@
-### [WIP] Custom Shortcuts for Google Maps
+### Custom Shortcuts for Google Maps
 
 Custom keyboard shortcuts for Google Maps. Work in progress.
 
@@ -11,7 +11,9 @@ Custom keyboard shortcuts for Google Maps. Work in progress.
 
 #### Known issues
 
-Sometimes some shortcuts need to be pressed twice to work.
+* Search shortcut does not work
+
+* In some cases the Imagery/Explore bar doesn't display anything until the map is dragged or zoomed
 
 #### License
 
