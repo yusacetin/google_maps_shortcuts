@@ -1,0 +1,71 @@
+<!--
+This file is part of Custom Shortcuts for Google Maps.
+
+Custom Shortcuts for Google Maps is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or (at your option)
+any later version.
+
+Custom Shortcuts for Google Maps is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with Custom Shortcuts
+for Google Maps. If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="style.css"/>
+        <script src="popup.js"></script>
+    </head>
+
+    <body>
+        <div class="title-text">Google Maps Shortcuts</div>
+
+        <!-- Shortcut options -->
+
+        <div class="shortcut-options">
+            <div class="row box">
+                <div class="info-text">Street view:</div>
+                <div class="textbox">
+                    <input id="sv-input" class="input multi-input" type="text" value="f">
+                </div>
+            </div>
+
+            <div class="row box">
+                <div class="info-text">Go back:</div>
+                <div class="textbox">
+                    <input id="back-input" class="input single-input clearfix" type="text" value="q">
+                </div>
+            </div>
+
+            <div class="row box">
+                <div class="info-text">Map style:</div>
+                <div class="textbox">
+                    <input id="mapstyle-input" class="input single-input clearfix" type="text" value="v">
+                </div>
+            </div>
+
+            <div class="row box">
+                <div class="info-text">Imagery/explore:</div>
+                <div class="textbox">
+                    <input id="imagery-input" class="input single-input clearfix" type="text" value="g">
+                </div>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+
+        <div class="row">
+            <button id="save-button">Save</button>
+        </div>
+
+        <div class="row">
+            <button id="reset-button">Reset to Developer Defaults</button>
+        </div>
+
+        <div class="space"></div>
+    </body>
+</html>

@@ -14,14 +14,26 @@ You should have received a copy of the GNU General Public License along with Cus
 for Google Maps. If not, see <https://www.gnu.org/licenses/>.
 */
 
+//// Constants
+
+const SV_ID = "svKeys";
+const BACK_ID = "backKeys";
+const MAPSTYLE_ID = "mapStyleKeys"
+const IMAGERY_ID = "imageryKeys";
+
+const SV_DEFAULT = "f";
+const BACK_DEFAULT = "q,alt+a";
+const MAPSTYLE_DEFAULT = "v";
+const IMAGERY_DEFAULT = "g";
+
 //// Global variables
 
 // Key combinations
-streetViewKeys = ["f"];
-backKeys = ["q"];
-searchKeys = ["s"];
-mapViewKeys = ["v"];
-imageryKeys = ["g"];
+streetViewKeys = SV_DEFAULT.split(",");
+backKeys = BACK_DEFAULT.split(",");
+//searchKeys = ["s"];
+mapStyleKeys = MAPSTYLE_DEFAULT.split(",");
+imageryKeys = IMAGERY_DEFAULT.split(",");
 
 // Modifier key pressed conditions
 var ctrlDown = false;
@@ -52,10 +64,6 @@ function goBack() {
         return;
     }
 
-    if (ifStreetViewOnCloseStreetView()) {
-        return;
-    }
-
     if (ifItemActiveAndInSearchCloseItem()) {
         return;
     }
@@ -65,6 +73,10 @@ function goBack() {
     }
 
     // TODO check if search box is active, close it if it's active
+
+    if (ifStreetViewOnCloseStreetView()) {
+        return;
+    }
 
     if (ifStreetViewHighlightOnTurnOff()) {
         return;
@@ -239,9 +251,11 @@ function ifItemActiveOutsideSearchCloseItem() {
         itemActiveOrSearchCloseButton.click();
 
         // Sometimes a double click is required for some reason
-        var itemActiveOrSearchCloseButton = getItemActiveOrSearchCloseButton();
-        if (itemActiveOrSearchCloseButton != null) {
-            itemActiveOrSearchCloseButton.click();
+        if (getStreetViewExitButton() == null) { // if you double click when street view is on, is exits street view and resets map style for some reason
+            var itemActiveOrSearchCloseButton = getItemActiveOrSearchCloseButton();
+            if (itemActiveOrSearchCloseButton != null) {
+                itemActiveOrSearchCloseButton.click();
+            }
         }
 
         return true;
@@ -327,6 +341,39 @@ function getSearchBox() {
     return document.getElementById("searchboxinput");
 }
 
+// Reference: https://stackoverflow.com/a/57551361
+async function getAndAssignStoredValues(){
+    return new Promise((resolve, reject)=>{
+        try{
+            chrome.storage.local.get([
+                SV_ID,
+                BACK_ID,
+                MAPSTYLE_ID,
+                IMAGERY_ID
+            ],
+                function(value){
+                    if (value[SV_ID] != undefined){
+                        streetViewKeys = value[SV_ID].split(",");
+                    }
+
+                    if (value[BACK_ID] != undefined){
+                        backKeys = value[BACK_ID].split(",");
+                    }
+
+                    if (value[MAPSTYLE_ID] != undefined){
+                        mapStyleKeys = value[MAPSTYLE_ID].split(",");
+                    }
+
+                    if (value[IMAGERY_ID] != undefined){
+                        imageryKeys = value[IMAGERY_ID].split(",");
+                    }
+                });
+        } catch(exc) {
+            console.log(exc);
+        }
+    })
+}
+
 //// Event listeners
 
 document.addEventListener("keyup", (e) => {
@@ -346,7 +393,7 @@ document.addEventListener("keyup", (e) => {
     checkAndRun(e, streetViewKeys, 0, toggleStreetView);
     checkAndRun(e, backKeys, 0, goBack);
     //checkAndRun(e, searchKeys, 0, activateSearch); // does not work
-    checkAndRun(e, mapViewKeys, 0, toggleMapView);
+    checkAndRun(e, mapStyleKeys, 0, toggleMapView);
     checkAndRun(e, imageryKeys, 0, toggleImagery);
 }, true);
 
@@ -359,3 +406,7 @@ document.addEventListener("keydown", (e) => {
         altDown = true;
     }
 }, true);
+
+window.onload = () => {
+    getAndAssignStoredValues();
+}

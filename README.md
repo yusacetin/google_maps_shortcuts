@@ -1,6 +1,6 @@
 ### Custom Shortcuts for Google Maps
 
-Custom keyboard shortcuts for Google Maps. Work in progress.
+Custom keyboard shortcuts for Google Maps.
 
 | Key | Function                      |
 |-----|-------------------------------|

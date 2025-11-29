@@ -1,16 +1,21 @@
 {
     "manifest_version": 3,
-    "version": "1.1.0",
-    "version_name": "1.1.0",
+    "version": "1.1.1",
+    "version_name": "1.1.1",
     "name": "Custom Shortcuts for Google Maps",
-    "description": "Modify keyboard shortcuts to make browsing Google Maps more fluid.",
+    "description": "Create keyboard shortcuts to make browsing Google Maps more fluid.",
     "permissions": [
         "storage"
     ],
     "host_permissions": [
         "*://google.com/maps*",
-        "*://www.google.com/maps*"
+        "*://*.google.com/maps*"
+
     ],
+    "action": {
+        "default_icon": "icon.png",
+        "default_popup": "popup.html"
+    },
     "content_scripts": [
         {
             "matches": [
@@ -21,9 +26,6 @@
         }
     ],
     "icons": {
-        "16": "icon.png",
-        "32": "icon.png",
-        "48": "icon.png",
         "128": "icon.png"
     }
 }
