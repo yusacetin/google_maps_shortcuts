@@ -194,8 +194,8 @@ function getStreetViewExitButton() {
 
     for (let i=0; i<exitButtonSearch.length; i++) {
         var currentButton = exitButtonSearch[i];
-        if (currentButton.hasAttribute("aria-label")) {
-            if (currentButton.getAttribute("aria-label") == "Close") {
+        if (currentButton.hasAttribute("jsaction")) {
+            if (currentButton.getAttribute("jsaction").includes("imageheader.close")) {
                 return currentButton;
             }
         }
@@ -269,8 +269,8 @@ function getItemActiveOrSearchCloseButton() {
     if (selectedItemCloseButtonSearch.length > 0) {
         for (let i=0; i<selectedItemCloseButtonSearch.length; i++) {
             var selectedItemCloseButton = selectedItemCloseButtonSearch[i];
-            if (selectedItemCloseButton.hasAttribute("aria-label")) {
-                if (selectedItemCloseButton.getAttribute("aria-label") == "Close") {
+            if (selectedItemCloseButton.hasAttribute("jsaction")) {
+                if (selectedItemCloseButton.getAttribute("jsaction").includes("omnibox.clear")) {
                     return selectedItemCloseButton;
                 }
             }

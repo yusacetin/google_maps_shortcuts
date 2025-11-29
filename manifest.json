@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
-    "version": "2.0.0",
-    "version_name": "2.0.0",
+    "version": "2.0.1",
+    "version_name": "2.0.1",
     "name": "Custom Shortcuts for Google Maps",
     "description": "Create keyboard shortcuts to make browsing Google Maps more fluid.",
     "permissions": [
@@ -29,5 +29,13 @@
         "128": "icon128.png",
         "64": "icon64.png",
         "32": "icon32.png"
+    },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "googlemapsshortcuts@yusacetin.org",
+            "data_collection_permissions": {
+                "required": ["none"]
+            }
+        }
     }
 }
