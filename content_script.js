@@ -69,6 +69,9 @@ function goBack() {
     }
 
     if (ifItemActiveOutsideSearchCloseItem()) {
+        setTimeout(() => {
+            getSearchBox().blur();
+        }, 50);
         return;
     }
 
@@ -100,6 +103,7 @@ function toggleMapView() {
 }
 
 // TODO search does not work
+/*
 function activateSearch() {
     var searchBox = getSearchBox();
     if (searchBox == null) {
@@ -108,6 +112,7 @@ function activateSearch() {
     console.log("Click search")
     searchBox.click();
 }
+*/
 
 function toggleImagery() {
     var button = getToggleImageryButton();
@@ -343,11 +348,17 @@ function getSearchBox() {
 
 function getDirectionsStartingBox() {
     const parent_div = document.getElementById("sb_ifc50");
+    if (!parent_div) {
+        return null;
+    }
     return parent_div.querySelector("input");
 }
 
 function getDirectionsDestinationBox() {
     const parent_div = document.getElementById("sb_ifc51");
+    if (!parent_div) {
+        return null;
+    }
     return parent_div.querySelector("input");
 }
 
