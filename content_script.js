@@ -438,4 +438,5 @@ document.addEventListener("keydown", (e) => {
 
 window.onload = () => {
     getAndAssignStoredValues();
+    getSearchBox().blur();
 }
