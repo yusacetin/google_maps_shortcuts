@@ -52,11 +52,11 @@ body {
 }
 
 .row.box:nth-child(odd) {
-    background: rgb(30, 30, 30);
+    background: rgb(35, 35, 35);
 }
 
 .row.box:nth-child(even) {
-    background: rgb(50, 50, 50);
+    background: rgb(48, 48, 48);
 }
 
 .row.box:first-child {
