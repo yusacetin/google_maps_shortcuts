@@ -9,6 +9,12 @@ Create custom keyboard shortcuts for Google Maps. Shortcuts can be customized fr
 |  V           | Switch satellite/default view |
 |  G           | Toggle imagery/explore        |
 
+### Installation
+
+* [Chrome Web Store](https://chromewebstore.google.com/detail/cjhlnpanejjhebgiajjmbnhdfdppogmh)
+
+* [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/google_maps_shortcuts/)
+
 ### Known issues
 
 * Search shortcut does not work
