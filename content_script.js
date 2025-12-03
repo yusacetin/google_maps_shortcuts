@@ -341,6 +341,16 @@ function getSearchBox() {
     return document.getElementById("searchboxinput");
 }
 
+function getDirectionsStartingBox() {
+    const parent_div = document.getElementById("sb_ifc50");
+    return parent_div.querySelector("input");
+}
+
+function getDirectionsDestinationBox() {
+    const parent_div = document.getElementById("sb_ifc51");
+    return parent_div.querySelector("input");
+}
+
 // Reference: https://stackoverflow.com/a/57551361
 async function getAndAssignStoredValues(){
     return new Promise((resolve, reject)=>{
@@ -386,6 +396,14 @@ document.addEventListener("keyup", (e) => {
     }
 
     if (document.activeElement == getSearchBox()) {
+        return;
+    }
+
+    if (document.activeElement == getDirectionsStartingBox()) {
+        return;
+    }
+
+    if (document.activeElement == getDirectionsDestinationBox()) {
         return;
     }
 
