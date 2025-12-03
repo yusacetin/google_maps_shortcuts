@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "version": "2.0.1",
     "version_name": "2.0.1",
-    "name": "Custom Shortcuts for Google Maps",
+    "name": "Google Maps Shortcuts",
     "description": "Create keyboard shortcuts to make browsing Google Maps more fluid.",
     "permissions": [
         "storage"
