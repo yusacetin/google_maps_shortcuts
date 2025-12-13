@@ -12,13 +12,15 @@ Create custom keyboard shortcuts for Google Maps. Shortcuts can be customized fr
 ### Installation
 
 * [Chrome Web Store](https://chromewebstore.google.com/detail/cjhlnpanejjhebgiajjmbnhdfdppogmh)
-
 * [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/google_maps_shortcuts/)
+
+### Popup Screenshot
+
+![Google Maps Shortcuts](screenshot.png)
 
 ### Known issues
 
 * Search shortcut does not work
-
 * In some cases the Imagery/Explore bar doesn't display anything until the map is dragged or zoomed
 
 ### License
