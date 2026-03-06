@@ -120,14 +120,16 @@ function toggleImagery() {
         return;
     }
 
-    const prev_state = isImageryOn(); // returns true for imagery on, false for imagery off
+    //const prev_state = isImageryOn(); // returns true for imagery on, false for imagery off
     button.click();
+    /*
     const cur_state = isImageryOn();
     if (prev_state == cur_state) {
         // Fix for double click requirement, if the state does not change after one click, click again
         // TODO this fixes the double click, but the imagery bar shows nothing until the map is dragged or zoomed if a double click is performed to open it 
         button.click();
     }
+    */
 }
 
 //// Functions (other than callback functions)
@@ -301,6 +303,8 @@ function getToggleImageryButton() {
     if (buttons.length > 0) {
         return buttons[0];
     }
+
+    console.log("Error: failed to find imagery button");
     return null;
 }
 
