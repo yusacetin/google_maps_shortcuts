@@ -187,11 +187,22 @@ function isStreetViewHighlightOn() {
 }
 
 function getStreetViewToggleButton() {
-    return document.getElementById("q2sIQ");
+    var elem = document.getElementById("q2sIQ");
+    if (elem) {
+        return elem;
+    }
+    elem = document.getElementsByClassName("q2sIQ");
+    if (elem) {
+        if (elem[0]) {
+            return elem[0];
+        }
+    }
+    console.log("Error: street view toggle button not found");
+    return null; 
 }
 
 function getStreetViewExitButton() {
-    var exitButtonSearch = document.getElementsByClassName("g88MCb S9kvJb");
+    var exitButtonSearch = document.getElementsByClassName("S9kvJb");
 
     if (exitButtonSearch.length <= 0) {
         return null;
@@ -206,6 +217,7 @@ function getStreetViewExitButton() {
         }
     }
 
+    console.log("Error: street view exit button not found");
     return null;
 }
 
@@ -338,11 +350,14 @@ function checkAndRun(e, keyList, starti, callback){
                 return;
             }
         }
-
     }
 }
 
 function getSearchBox() {
+    const elem_form = document.getElementsByClassName("NhWQq")[0];
+    const elems_input = elem_form.getElementsByTagName("input");
+    return elems_input[0];
+
     return document.getElementById("searchboxinput");
 }
 
