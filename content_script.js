@@ -88,6 +88,20 @@ function goBack() {
     if (ifStreetViewHighlightOnTurnOff()) {
         return;
     }
+
+    // This must be at the end of the function because the reveal card is always present in the HTML tree, meaning the close button will be found and clicked
+    // no matter what. It's harmless to attempt to click it when it's closed, but it shouldn't block other actions so it shouldn't be return-checked.
+    ifRevealCardActiveCloseRevealCard();
+}
+
+function ifRevealCardActiveCloseRevealCard() {
+    const elems = document.getElementsByClassName("Cwoqlf");
+    if (elems.length == 0) {
+        return false;
+    }
+    const elem = elems[0];
+    elem.click();
+    return true;
 }
 
 function ifRulerActiveCloseRuler() {
