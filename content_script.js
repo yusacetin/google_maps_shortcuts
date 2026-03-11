@@ -75,6 +75,10 @@ function goBack() {
         return;
     }
 
+    if (ifRulerActiveCloseRuler()) {
+        return;
+    }
+
     // TODO check if search box is active, close it if it's active
 
     if (ifStreetViewOnCloseStreetView()) {
@@ -84,6 +88,16 @@ function goBack() {
     if (ifStreetViewHighlightOnTurnOff()) {
         return;
     }
+}
+
+function ifRulerActiveCloseRuler() {
+    const elems = document.getElementsByClassName("AIIFrf Hk4XGb");
+    if (elems.length == 0) {
+        return false;
+    }
+    const elem = elems[0];
+    elem.click();
+    return true;
 }
 
 function toggleMapView() {
