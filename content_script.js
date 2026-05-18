@@ -50,13 +50,6 @@ function toggleStreetView(){
     // Being here means we are in map mode, so we toggle the street view highlights
     const prev_state = isStreetViewHighlightOn();
     ifMapModeToggleStreetViewHighlight();
-    setTimeout(() => {
-        // Double click requirement fix
-        const cur_state = isStreetViewHighlightOn();
-        if (prev_state == cur_state) {
-            ifMapModeToggleStreetViewHighlight();
-        }
-    }, 50);
 }
 
 function goBack() {
