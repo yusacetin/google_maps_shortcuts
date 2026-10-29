@@ -22,7 +22,7 @@ body {
     border: solid 0.2em rgb(224, 224, 224);
     padding: 0.75em;
     margin: 0;
-    font-family: sans-serif;
+    font-family: "Noto Sans", sans-serif;
 }
 
 .title-text {
@@ -94,6 +94,11 @@ body {
 
 .noselect {
     user-select: none;
+}
+
+.notice {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
 }
 
 button {
