@@ -22,36 +22,54 @@ If not, see <https://www.gnu.org/licenses/>.
     </head>
 
     <body>
-        <div class="title-text">Google Maps Shortcuts</div>
+        <div class="title-text noselect">Google Maps Shortcuts</div>
 
         <!-- Shortcut options -->
 
         <div class="shortcut-options">
             <div class="row box">
-                <div class="info-text">Street view:</div>
+                <div class="info-text noselect">Street view:</div>
                 <div class="textbox">
                     <input id="sv-input" class="input multi-input" type="text" value="f">
                 </div>
             </div>
 
             <div class="row box">
-                <div class="info-text">Go back:</div>
+                <div class="info-text noselect">Go back:</div>
                 <div class="textbox">
                     <input id="back-input" class="input single-input clearfix" type="text" value="q">
                 </div>
             </div>
 
             <div class="row box">
-                <div class="info-text">Map style:</div>
+                <div class="info-text noselect">Map style:</div>
                 <div class="textbox">
                     <input id="mapstyle-input" class="input single-input clearfix" type="text" value="v">
                 </div>
             </div>
 
             <div class="row box">
-                <div class="info-text">Imagery/explore:</div>
+                <div class="info-text noselect">Imagery/explore:</div>
                 <div class="textbox">
                     <input id="imagery-input" class="input single-input clearfix" type="text" value="g">
+                </div>
+            </div>
+
+            <div class="row box multiline">
+                <div class="subrow switch-row">
+                    <div class="info-text noselect">
+                        <label for="double-press-correction-enabled-input">Double press correction</label>
+                    </div>
+                    <div class="textbox">
+                        <input id="double-press-correction-enabled-input" class="input single-input clearfix" type="checkbox"/>
+                    </div>
+                </div>
+
+                <div class="subrow">
+                    <div class="info-text noselect">Correction wait time (ms): </div>
+                    <div class="textbox">
+                        <input id="double-press-correction-wait-time-input" class="input single-input clearfix" type="number" value="50"/>
+                    </div>
                 </div>
             </div>
         </div>

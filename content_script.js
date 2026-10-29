@@ -20,11 +20,16 @@ const SV_ID = "svKeys";
 const BACK_ID = "backKeys";
 const MAPSTYLE_ID = "mapStyleKeys"
 const IMAGERY_ID = "imageryKeys";
+const DOUBLE_PRESS_CORRECTION_ENABLED_ID = "doublePressCorrectionEnabled";
+const DOUBLE_PRESS_CORRECTION_WAIT_TIME_MS_ID = "doublePressCorrectionTimeMs"
 
 const SV_DEFAULT = "f";
 const BACK_DEFAULT = "q,alt+a";
 const MAPSTYLE_DEFAULT = "v";
 const IMAGERY_DEFAULT = "g";
+
+const DOUBLE_PRESS_CORRECTION_ENABLED_DEFAULT = true;
+const DOUBLE_PRESS_CORRECTION_WAIT_TIME_MS_DEFAULT = 50;
 
 //// Global variables
 
@@ -40,6 +45,10 @@ var ctrlDown = false;
 var shiftDown = false;
 var altDown = false;
 
+// Functional variables
+var doublePressCorrectionEnabled = DOUBLE_PRESS_CORRECTION_ENABLED_DEFAULT;
+var doublePressCorrectionWaitTimeMs = DOUBLE_PRESS_CORRECTION_WAIT_TIME_MS_DEFAULT;
+
 //// Callback functions
 
 function toggleStreetView(){
@@ -50,6 +59,16 @@ function toggleStreetView(){
     // Being here means we are in map mode, so we toggle the street view highlights
     const prev_state = isStreetViewHighlightOn();
     ifMapModeToggleStreetViewHighlight();
+
+    if (doublePressCorrectionEnabled) {
+        setTimeout(() => {
+            // Double click requirement fix
+            const cur_state = isStreetViewHighlightOn();
+            if (prev_state == cur_state) {
+                ifMapModeToggleStreetViewHighlight();
+            }
+        }, doublePressCorrectionWaitTimeMs);
+    }
 }
 
 function goBack() {
@@ -115,12 +134,15 @@ function toggleMapView() {
 
     const prev_state = button.getAttribute("vet");
     button.click();
-    setTimeout(() => {
-        const cur_state = button.getAttribute("vet");
-        if (prev_state == cur_state) {
-            button.click();
-        }
-    }, 50);
+
+    if (doublePressCorrectionEnabled) {
+        setTimeout(() => {
+            const cur_state = button.getAttribute("vet");
+            if (prev_state == cur_state) {
+                button.click();
+            }
+        }, doublePressCorrectionWaitTimeMs);
+    }
 }
 
 // TODO search does not work
@@ -383,7 +405,7 @@ function getSearchBox() {
     const elems_input = elem_form.getElementsByTagName("input");
     return elems_input[0];
 
-    return document.getElementById("searchboxinput");
+    //return document.getElementById("searchboxinput");
 }
 
 function getDirectionsStartingBox() {
@@ -403,30 +425,40 @@ function getDirectionsDestinationBox() {
 }
 
 // Reference: https://stackoverflow.com/a/57551361
-async function getAndAssignStoredValues(){
+async function getAndAssignStoredValues() {
     return new Promise((resolve, reject)=>{
         try{
             chrome.storage.local.get([
                 SV_ID,
                 BACK_ID,
                 MAPSTYLE_ID,
-                IMAGERY_ID
+                IMAGERY_ID,
+                DOUBLE_PRESS_CORRECTION_ENABLED_ID,
+                DOUBLE_PRESS_CORRECTION_WAIT_TIME_MS_ID
             ],
                 function(value){
-                    if (value[SV_ID] != undefined){
+                    if (value[SV_ID] != undefined) {
                         streetViewKeys = value[SV_ID].split(",");
                     }
 
-                    if (value[BACK_ID] != undefined){
+                    if (value[BACK_ID] != undefined) {
                         backKeys = value[BACK_ID].split(",");
                     }
 
-                    if (value[MAPSTYLE_ID] != undefined){
+                    if (value[MAPSTYLE_ID] != undefined) {
                         mapStyleKeys = value[MAPSTYLE_ID].split(",");
                     }
 
-                    if (value[IMAGERY_ID] != undefined){
+                    if (value[IMAGERY_ID] != undefined) {
                         imageryKeys = value[IMAGERY_ID].split(",");
+                    }
+                    
+                    if (value[DOUBLE_PRESS_CORRECTION_ENABLED_ID] != undefined) {
+                        doublePressCorrectionEnabled = value[DOUBLE_PRESS_CORRECTION_ENABLED_ID];
+                    }
+
+                    if (value[DOUBLE_PRESS_CORRECTION_WAIT_TIME_MS_ID] != undefined) {
+                        doublePressCorrectionWaitTimeMs = value[DOUBLE_PRESS_CORRECTION_WAIT_TIME_MS_ID];
                     }
                 });
         } catch(exc) {
